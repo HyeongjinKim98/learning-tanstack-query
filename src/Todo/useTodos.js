@@ -25,11 +25,20 @@ export const useTodos = () => {
     queryKey: ["todos"],
     queryFn: fetchTodos,
     initialData: [],
-    select: (data) => ({
-      pending: data.filter((todo) => todo.status === "pending"),
-      inProgress: data.filter((todo) => todo.status === "inProgress"),
-      completed: data.filter((todo) => todo.status === "completed"),
-    }),
+    select: (data) => {
+      const groupedData = Object.keys(STATUS_CONFIG).reduce((acc, status) => {
+        const filteredData = data.filter((todo) => todo.status === status);
+        acc[status] = {
+          item: filteredData,
+          count: filteredData.length,
+        };
+        return acc;
+      }, {});
+      return {
+        ...groupedData,
+        total: data.length,
+      };
+    },
   });
   const addMutation = useMutation({
     mutationFn: addTodo,
