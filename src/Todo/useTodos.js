@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import supabase from "../../SupabaseClient";
-
+import { STATUS_CONFIG } from "./config";
 const fetchTodos = async () => {
   const res = await supabase.from("todo").select("*");
   return res.data;
@@ -12,10 +12,7 @@ const deleteTodo = async (id) =>
   await supabase.from("todo").delete().eq("id", id);
 
 const changeTodoStatus = async ({ id, status }) => {
-  const statusOrder = ["pending", "inProgress", "completed"];
-  const currentIndex = statusOrder.indexOf(status);
-  const nextStatus = statusOrder[(currentIndex + 1) % statusOrder.length];
-
+  const nextStatus = STATUS_CONFIG[status].next;
   return await supabase
     .from("todo")
     .update({ status: nextStatus })
