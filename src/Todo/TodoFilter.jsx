@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { STATUS_CONFIG } from "./config";
 export const TodoFilter = ({ currentFilter, handleFilter, todoCounts }) => {
   return (
     <FilterWrapper>
@@ -30,19 +31,7 @@ const Count = styled.div`
   align-items: center;
   color: white;
   background-color: ${(props) => {
-    console.log(props.$filter);
-    switch (props.$filter) {
-      case "ALL":
-        return "#010101";
-      case "PENDING":
-        return "#649ffffb";
-      case "INPROGRESS":
-        return "#ff5c5c";
-      case "COMPLETED":
-        return "#00cb1b";
-      default:
-        return "grey";
-    }
+    return STATUS_CONFIG[props.$filter]?.color || 'grey'
   }};
   width: 1.8rem;
   height: 1.8rem;
