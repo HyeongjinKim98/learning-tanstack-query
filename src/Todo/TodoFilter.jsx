@@ -7,7 +7,7 @@ export const TodoFilter = ({ currentFilter, handleFilter, todoCounts }) => {
         <FilterBtnWrapper onClick={() => handleFilter(filter)}>
           <Count $filter={filter}>{count}</Count>
           <FilterBtn key={filter} $iscurrentfilter={filter === currentFilter}>
-            {filter}
+            {STATUS_CONFIG[filter]?.label || '전체'}
           </FilterBtn>
         </FilterBtnWrapper>
       ))}
