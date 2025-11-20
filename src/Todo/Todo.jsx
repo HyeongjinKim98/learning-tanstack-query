@@ -32,17 +32,6 @@ export const Todo = () => {
     setCurrentFilter(nextFilter);
   };
 
-  const todoCounts = useMemo(
-    () => ({
-      ALL:
-        todos.pending.length + todos.inProgress.length + todos.completed.length,
-      PENDING: todos.pending.length,
-      INPROGRESS: todos.inProgress.length,
-      COMPLETED: todos.completed.length,
-    }),
-    [todos]
-  );
-
   if (isPending) return <div>Loading</div>;
   if (isError) return <div>Error</div>;
 
@@ -53,7 +42,7 @@ export const Todo = () => {
         <TodoFilter
           handleFilter={handleFilter}
           currentFilter={currentFilter}
-          todoCounts={todoCounts}
+          todoCounts={todos.counts}
         />
         <TodoForm
           todo={todo}
@@ -61,7 +50,7 @@ export const Todo = () => {
           handleSubmit={handleSubmit}
         />
         <TodoList
-          todos={todos}
+          todos={todos.data}
           currentFilter={currentFilter}
           deleteTodo={deleteTodo}
           changeStatus={changeStatus}

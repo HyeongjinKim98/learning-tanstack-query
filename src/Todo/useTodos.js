@@ -26,17 +26,19 @@ export const useTodos = () => {
     queryFn: fetchTodos,
     initialData: [],
     select: (data) => {
-      const groupedData = Object.keys(STATUS_CONFIG).reduce((acc, status) => {
+      const groupedData ={};
+      const counts ={};
+      Object.keys(STATUS_CONFIG).forEach((status) => {
         const filteredData = data.filter((todo) => todo.status === status);
-        acc[status] = {
-          item: filteredData,
-          count: filteredData.length,
-        };
-        return acc;
-      }, {});
+        groupedData[status] = filteredData;
+        counts[status] = filteredData.length;
+      });
       return {
-        ...groupedData,
-        total: data.length,
+        data : groupedData,
+        counts :{
+          ...counts,
+          total : data.length,
+        }
       };
     },
   });
