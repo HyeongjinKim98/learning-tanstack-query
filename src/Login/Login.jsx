@@ -1,21 +1,19 @@
 import { useState } from "react";
 import supabase from "../../SupabaseClient";
 
-export const SignUp = () => {
+export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email, password);
     try {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email.trim(),
+        password: password,
       });
 
       if (error) throw error;
-
       console.log(data);
     } catch (err) {
       console.log(err);
@@ -36,7 +34,7 @@ export const SignUp = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">sign up</button>
+        <button type="submit">sign in</button>
       </form>
     </>
   );
