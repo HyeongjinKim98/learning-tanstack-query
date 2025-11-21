@@ -9,6 +9,15 @@ export const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setLoading(true);
+
+    if(!email || !password){
+      setError("이메일과 비밀번호를 입력해주세요")
+      setLoading(false)
+      return
+    }
+
     try {
       const { data, error } = await supabase.auth.signUp({
         email,
