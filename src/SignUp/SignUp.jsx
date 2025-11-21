@@ -1,21 +1,21 @@
 import { useState } from "react";
 import supabase from "../../SupabaseClient";
-
+import { useNavigate } from "react-router-dom";
 export const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
-    if(!email || !password){
-      setError("이메일과 비밀번호를 입력해주세요")
-      setLoading(false)
-      return
+    if (!email || !password) {
+      setError("이메일과 비밀번호를 입력해주세요");
+      setLoading(false);
+      return;
     }
 
     try {
@@ -26,28 +26,32 @@ export const SignUp = () => {
 
       if (error) throw error;
 
-      console.log(data);
+      alert("회원가입 성공");
+      navigate("/");
     } catch (err) {
-      console.log(err);
+      setError(err.message);
     } finally {
-      console.log("done");
+      setLoading(false);
     }
   };
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">sign up</button>
-      </form>
+      <div>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type="submit">sign up</button>
+        </form>
+        <div>{error}</div>
+      </div>
     </>
   );
 };
