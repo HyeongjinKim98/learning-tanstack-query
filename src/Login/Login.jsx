@@ -5,7 +5,6 @@ export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const login = useAuthStore((state) => state.login);
-  const logout = useAuthStore((state) => state.logout);
 
   const navigate = useNavigate();
 
@@ -13,14 +12,6 @@ export const Login = () => {
     e.preventDefault();
     try {
       await login(email, password);
-      navigate('/')
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  const handleLogout = async () => {
-    try {
-      await logout();
       navigate('/')
     } catch (err) {
       console.log(err);
@@ -40,7 +31,6 @@ export const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">sign in</button>
-        <button onClick ={handleLogout}>로그아웃</button>
       </form>
     </>
   );
