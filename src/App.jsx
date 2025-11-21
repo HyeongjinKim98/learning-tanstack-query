@@ -21,7 +21,6 @@ const App = () => {
 
 const Root =()=>{
   const user = useAuthStore(state=>state.user);
-
   if(user) {
     return <Navigate to="/todo"/>
   }

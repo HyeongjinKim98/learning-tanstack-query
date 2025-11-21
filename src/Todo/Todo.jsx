@@ -3,6 +3,7 @@ import { useTodos } from "./useTodos";
 import { TodoList } from "./TodoList";
 import { TodoFilter } from "./TodoFilter";
 import { TodoForm } from "./TodoForm";
+import { TodoProfile } from "./TodoProfile";
 import styled from "styled-components";
 export const Todo = () => {
   const [todo, setTodo] = useState("");
@@ -39,6 +40,7 @@ export const Todo = () => {
     <>
       <TodoWrapper>
         <TodoTitle>Todo</TodoTitle>
+        <TodoProfile/>
         <TodoFilter
           handleFilter={handleFilter}
           currentFilter={currentFilter}

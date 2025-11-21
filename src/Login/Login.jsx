@@ -1,16 +1,19 @@
 import { useState } from "react";
-import supabase from "../../SupabaseClient";
 import { useAuthStore } from "../stores/authStore";
+import { useNavigate } from "react-router-dom";
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const login = useAuthStore((state) => state.login);
   const logout = useAuthStore((state) => state.logout);
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await login(email, password);
+      navigate('/')
     } catch (err) {
       console.log(err);
     }
@@ -18,6 +21,7 @@ export const Login = () => {
   const handleLogout = async () => {
     try {
       await logout();
+      navigate('/')
     } catch (err) {
       console.log(err);
     }
