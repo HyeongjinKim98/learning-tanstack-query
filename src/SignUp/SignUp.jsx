@@ -4,10 +4,11 @@ import supabase from "../../SupabaseClient";
 export const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email, password);
     try {
       const { data, error } = await supabase.auth.signUp({
         email,
