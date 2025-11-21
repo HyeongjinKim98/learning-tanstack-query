@@ -5,14 +5,17 @@ import { ProtectedRoute } from "./Router/ProtectedRoute";
 import { SignUp } from "./SignUp/SignUp";
 import { Login } from "./Login/Login";
 import { Todo } from "./Todo/Todo";
+import { AuthLayout } from "./Layouts/AuthLayout";
 const App = () => {
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Root />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/Signup" element={<SignUp />} />
+          <Route element={<AuthLayout />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/Signup" element={<SignUp />} />
+          </Route>
           <Route
             path="/todo"
             element={
