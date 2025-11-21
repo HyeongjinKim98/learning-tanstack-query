@@ -1,24 +1,17 @@
 import { useState } from "react";
 import supabase from "../../SupabaseClient";
-
+import { useAuthStore } from "../stores/authStore";
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const login = useAuthStore(state => state.login)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: email.trim(),
-        password: password,
-      });
-
-      if (error) throw error;
-      console.log(data);
-    } catch (err) {
-      console.log(err);
-    } finally {
-      console.log("done");
+    try{
+      await login(email, password);
+    }catch(err){
+      console.log(err)
     }
   };
   return (
