@@ -20,6 +20,16 @@ export const useAuthStore = create(
         });
         return data;
       },
+      logout: async () => {
+        const { data, error } = await supabase.auth.signOut();
+        if (error) throw error;
+
+        set({
+          user: null,
+          session: null,
+        });
+        return data;
+      },
     })),
     {
       name: "auth-storage",
