@@ -6,6 +6,7 @@ import { SignUp } from "./SignUp/SignUp";
 import { Login } from "./Login/Login";
 import { Todo } from "./Todo/Todo";
 import { AuthLayout } from "./Layouts/AuthLayout";
+import { TodoLayout } from "./Layouts/TodoLayout";
 const App = () => {
   return (
     <>
@@ -16,14 +17,16 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/Signup" element={<SignUp />} />
           </Route>
-          <Route
-            path="/todo"
-            element={
-              <ProtectedRoute>
-                <Todo />
-              </ProtectedRoute>
-            }
-          />
+          <Route element={<TodoLayout/>}>
+            <Route
+              path="/todo"
+              element={
+                <ProtectedRoute>
+                  <Todo />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>
